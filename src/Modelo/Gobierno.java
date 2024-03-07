@@ -21,6 +21,7 @@ public class Gobierno {
          String nombre,fv;
          Producto productos[]=new Producto[Ay.getCProds()];//definir el vector con la cantidad de productos que va a entregar el gobierno
          for(int i=0;i<Ay.getCProds(); i++){
+             oe.mostraDatos("Ayuda "+ i+1);
              id=oe.pedirEntero("ingrese id");
              nombre=oe.pedirString("ingrese nombre");
              fv=oe.pedirString("Ingrese fecha vencimiento");
@@ -42,7 +43,7 @@ public class Gobierno {
            nom=oe.pedirString("Ingrese nombre");
            do{
            edad=oe.pedirEntero("ingrese edad");
-           }while(!v.evaluared(edad));
+           }while(!v.evaluarEdadC(edad));
            do{
            est=oe.pedirEntero("Ingrese estrato");
            }while(!v.evaluarEst(est));
@@ -54,41 +55,42 @@ public class Gobierno {
                oe.mostraDatos("Integrante"+(i+1));
                ced=oe.pedirEntero("ingrese identificacion");
                nom=oe.pedirString("Ingrese nombre");
+               
                do{
-                   edad=oe.pedirEntero("ingrese edad");
-                }while(!v.evaluared(edad));
+                   edad=oe.pedirEntero("ingrese la edad");
+               }while(!v.evaluarEdadC(edad));
+               
                rol=oe.pedirEntero("Ingrese su rol 1.hijo, 2.conyugue, 3 padre"); 
-               if(rol==1){
-                   do{
-                     do{// validar edad 
-                        edad=oe.pedirEntero("ingrese edad");
-                        }while(!v.evaluared(edad));  
-                   }while(edad>(cf.getEdad()+15));
+               //validar la edad segun el rol
+               switch(rol){
+                  case 1:
+                        while(edad>=cf.getEdad()+15 || !v.evaluared(edad)){
+                            edad=oe.pedirEntero("ingrese la edad");
+                        };
+                    break;
+                  case 2:
+                        while(!v.evaluared(edad)){
+                            edad=oe.pedirEntero("ingrese la edad");
+                        }; 
+                    break;
+                  case 3:
+                        while(edad<=cf.getEdad()+15 || !v.evaluared(edad)){
+                            edad=oe.pedirEntero("ingrese la edad");
+                        };
+                    break;
                }
-               if(rol==2){
-                   do{// validar edad 
-                      edad=oe.pedirEntero("ingrese edad");
-                     }while(!v.evaluared(edad) & edad>14); 
-               }
-               if(rol==3){
-                   do{
-                     do{// validar edad 
-                        edad=oe.pedirEntero("ingrese edad");
-                        }while(!v.evaluared(edad));  
-                   }while(edad<(cf.getEdad()+15));
-               }
-             Persona Integ=new Persona(ced,nom,edad);
+               Persona Integ=new Persona(ced,nom,edad);
              Integ.setRol(rol);
              personasF[i]=Integ;
-           }
-        Familia fam=new Familia(cf, personasF,cpf); 
-       familias_post[ind]=fam;
-       res=oe.pedirEntero(" si llega familia a postularse 1 sino otro valor");
-       
-     /*  Persona per=familias_post[ind].getP();//entrega el cabeza de familia
-       Persona perso[]=new Persona[familias_post[ind].getPersonas().length];//crea vector con la cantidad de integrantes
-       perso=familias_post[ind].getPersonas();//entrega el vector de la familia al auxiliar
-      */}
-   
-   }  
+                Familia fam=new Familia(cf, personasF,cpf); 
+               familias_post[ind]=fam;
+               res=oe.pedirEntero(" si llega familia a postularse 1 sino otro valor");
+       }
+
+        }  
+     }
+
+     public void ayudaFamilia(){
+
+     }
 }
