@@ -4,6 +4,7 @@ public class Familia{
     private Persona p;
     private Persona personas[];
     private int cp;
+    private boolean estadoAyu;
     
     
     public Familia(Persona p, Persona personas[], int cp){
@@ -35,6 +36,13 @@ public class Familia{
         this.cp = cp;
     }
     
+    public void setEstadoAyu(Boolean estadoAyu){
+        this.estadoAyu=estadoAyu;
+    }
+    
+    public boolean getEstadoAyu(){
+        return estadoAyu;
+    }
     
     
     

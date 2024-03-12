@@ -58,7 +58,7 @@ public class Gobierno {
                
                do{
                    edad=oe.pedirEntero("ingrese la edad");
-               }while(!v.evaluarEdadC(edad));
+               }while(!v.evaluared(edad));
                
                rol=oe.pedirEntero("Ingrese su rol 1.hijo, 2.conyugue, 3 padre"); 
                //validar la edad segun el rol
@@ -80,17 +80,39 @@ public class Gobierno {
                     break;
                }
                Persona Integ=new Persona(ced,nom,edad);
-             Integ.setRol(rol);
-             personasF[i]=Integ;
-                Familia fam=new Familia(cf, personasF,cpf); 
+                Integ.setRol(rol);
+                personasF[i]=Integ;
+        }
+               Familia fam=new Familia(cf, personasF,cpf); 
                familias_post[ind]=fam;
                res=oe.pedirEntero(" si llega familia a postularse 1 sino otro valor");
-       }
 
         }  
      }
 
      public void ayudaFamilia(){
-
+         
      }
+     
+     public void mostrarFamilia(){
+         int cedula=oe.pedirEntero("buscar cedula");
+         String mensaje="";
+         
+         for(int i=0;i<familias_post.length;i++){
+             if (familias_post[i].getP().getId() == cedula) {
+                 mensaje += "Cabeza de familia: " + familias_post[i].getP().getNombre() + " rol: " + familias_post[i].getP().getRol();
+                 break;
+             }
+         }
+         oe.mostraDatos(mensaje);
+     }
+     
+    public void ifFamiliaApta(){
+        for(int i=0;i<familias_post.length;i++){
+             
+         }
+    }
+     
+     
 }
+                       
