@@ -54,7 +54,7 @@ public class Gobierno {
            cpf=oe.pedirEntero("Cuantas personas componen su familia");
            personasF=new Persona [cpf];//sirve pára guardar las personas de esa familia
            for(int i=0; i<cpf;i++){
-               oe.mostraDatos("Integrante"+(i+1));
+               oe.mostraDatos("Integrante "+ i+1);
                ced=oe.pedirEntero("ingrese identificacion");
                nom=oe.pedirString("Ingrese nombre");
                
@@ -110,6 +110,7 @@ public class Gobierno {
        
        for(Familia famPos:familias_post){
            String mensaje = "Ayuda: ";
+           oe.mostraDatos(mensaje);
             if(famPos.getP().getEstrato()>=4){
                mensaje="Familia no apta para recibir ayuda";
                esApta=false;
@@ -129,15 +130,20 @@ public class Gobierno {
                     mensaje+="1000000$, ";
                 }
             }
+            
+            oe.mostraDatos(mensaje);
             inteFam=famPos.getPersonas();
-            for(Persona cadaInt:inteFam){ 
-                if(cadaInt.getEdad()<=5){
-                    prodsAyu=Ay.getProds();
-                    for(Producto prod:prodsAyu){
-                        if(prod.getCantExistente()>0){
-                        prod.setCantExistente(prod.getCantExistente()-1);
-                        mensaje+="recibe 1 "+ prod.getNombre()+" ";
-                        famPos.setEstadoAyu(true);
+      
+            if(inteFam.length>0){
+                for(Persona cadaInt:famPos.getPersonas()){ 
+                    if(cadaInt.getEdad()<=5){
+                        prodsAyu=Ay.getProds();
+                        for(Producto prod:prodsAyu){
+                            if(prod.getCantExistente()>0){
+                            prod.setCantExistente(prod.getCantExistente()-1);
+                            mensaje+="recibe 1 "+ prod.getNombre()+" ";
+                            famPos.setEstadoAyu(true);
+                            }
                         }
                     }
                 }
