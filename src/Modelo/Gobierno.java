@@ -2,12 +2,13 @@
 package Modelo;
 
 import Vista.InOut;
+import java.util.ArrayList;
 
 
 public class Gobierno {
     //atributos de la clase 
      Familia familias_post[]=new Familia[100];//se define vector de familias postuladas
-     Familia familias_ayu[]=new Familia[100];
+     ArrayList <Familia> familias_ayu=new ArrayList <Familia>();
      Ayuda Ay;
      InOut oe=new InOut();//crea el objeto para acceder a InOut
      Validaciones v=new Validaciones();
@@ -49,6 +50,7 @@ public class Gobierno {
            }while(!v.evaluarEst(est));
            cf=new Persona(ced,nom,edad);
            cf.setEstrato(est);
+           cf.setRol(0);
            cpf=oe.pedirEntero("Cuantas personas componen su familia");
            personasF=new Persona [cpf];//sirve pára guardar las personas de esa familia
            for(int i=0; i<cpf;i++){
@@ -56,27 +58,27 @@ public class Gobierno {
                ced=oe.pedirEntero("ingrese identificacion");
                nom=oe.pedirString("Ingrese nombre");
                
-               do{
-                   edad=oe.pedirEntero("ingrese la edad");
-               }while(!v.evaluared(edad));
-               
                rol=oe.pedirEntero("Ingrese su rol 1.hijo, 2.conyugue, 3 padre"); 
                //validar la edad segun el rol
                switch(rol){
                   case 1:
-                        while(edad>=cf.getEdad()+15 || !v.evaluared(edad)){
+                        do{
                             edad=oe.pedirEntero("ingrese la edad");
-                        };
+                        }
+                        while(edad>=cf.getEdad()+15 || !v.evaluared(edad));
                     break;
                   case 2:
-                        while(!v.evaluared(edad)){
+                      do{
                             edad=oe.pedirEntero("ingrese la edad");
-                        }; 
+                      }while(!v.evaluared(edad));
+                       
                     break;
                   case 3:
-                        while(edad<=cf.getEdad()+15 || !v.evaluared(edad)){
+                      do{
+                          
                             edad=oe.pedirEntero("ingrese la edad");
-                        };
+                      }
+                        while(edad<=cf.getEdad()+15 || !v.evaluared(edad));
                     break;
                }
                Persona Integ=new Persona(ced,nom,edad);
@@ -89,29 +91,62 @@ public class Gobierno {
 
         }  
      }
-
-     public void ayudaFamilia(){
-         
-     }
      
      public void mostrarFamilia(){
-         int cedula=oe.pedirEntero("buscar cedula");
-         String mensaje="";
-         
-         for(int i=0;i<familias_post.length;i++){
-             if (familias_post[i].getP().getId() == cedula) {
-                 mensaje += "Cabeza de familia: " + familias_post[i].getP().getNombre() + " rol: " + familias_post[i].getP().getRol();
-                 break;
-             }
-         }
-         oe.mostraDatos(mensaje);
+        String mensaje="";
+        int i=0;
+        mensaje+="Familias ayudadas: "+familias_ayu.size();
+        for(Familia famAyu:familias_ayu){
+            mensaje+=i+". Familia de "+famAyu.getP()+" Recibio ayuda \n";
+        } 
+        oe.mostraDatos(mensaje);
      }
      
-    public void ifFamiliaApta(){
-        for(int i=0;i<familias_post.length;i++){
-             
-         }
-    }
+    
+   public void evaluarFamilia(){
+       boolean esApta=false;
+       Persona inteFam[];
+       Producto prodsAyu[];
+       
+       for(Familia famPos:familias_post){
+           String mensaje = "Ayuda: ";
+            if(famPos.getP().getEstrato()>=4){
+               mensaje="Familia no apta para recibir ayuda";
+               esApta=false;
+               break;
+            }
+            if(famPos.getP().getEstrato()==1 || famPos.getP().getEstrato()==2){
+                if(Ay.getCdinero()>=1000000){
+                    Ay.setCdinero(Ay.getCdinero()-1000000);
+                    esApta=true;
+                    mensaje+="1000000$, ";
+                }
+            }
+            if(famPos.getP().getEstrato()==3){
+                if(Ay.getCdinero()>=500000){
+                    Ay.setCdinero(Ay.getCdinero()-500000);
+                    esApta=true;
+                    mensaje+="1000000$, ";
+                }
+            }
+            inteFam=famPos.getPersonas();
+            for(Persona cadaInt:inteFam){ 
+                if(cadaInt.getEdad()<=5){
+                    prodsAyu=Ay.getProds();
+                    for(Producto prod:prodsAyu){
+                        if(prod.getCantExistente()>0){
+                        prod.setCantExistente(prod.getCantExistente()-1);
+                        mensaje+="recibe 1 "+ prod.getNombre()+" ";
+                        famPos.setEstadoAyu(true);
+                        }
+                    }
+                }
+            }
+           oe.mostraDatos(mensaje);
+           famPos.setEstadoAyu(esApta);
+           familias_ayu.add(famPos);
+       }
+   }
      
      
 }
