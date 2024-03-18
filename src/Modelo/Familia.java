@@ -10,6 +10,7 @@ public class Familia{
     public Familia(Persona p, Persona personas[], int cp){
         this.p=p;
         personas = new Persona[cp];
+        this.cp=cp;
     }
 
     public Persona getP() {

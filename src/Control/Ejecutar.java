@@ -29,7 +29,7 @@ public class Ejecutar {
             case 1:
                 do{
                     cantDinero=vista.pedirEntero("Ingrese el fondo de dinero");
-                    cantProds=vista.pedirEntero("Ingrese la cantidad de ayudas");
+                    cantProds=vista.pedirEntero("Ingrese la cantidad de Productos");
                 }while(cantDinero<=0 || cantProds<=0);
             //    gobCargado=false;
                 gobierno=new Gobierno(cantDinero,cantProds);
@@ -58,7 +58,6 @@ public class Ejecutar {
             case 4:
              //   if(gobCargado==false && prodsCargado==false && famCargado==false){
                 gobierno.evaluarFamilia();
-                gobierno.mostrarFamilia();
                /* }else{
                     vista.mostraDatos("Dege ingresar primero las familias");
                 }*/
