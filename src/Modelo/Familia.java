@@ -9,7 +9,8 @@ public class Familia{
     
     public Familia(Persona p, Persona personas[], int cp){
         this.p=p;
-        personas = new Persona[cp];
+        //personas = new Persona[cp];
+        this.personas=personas;
         this.cp=cp;
     }
 
@@ -29,7 +30,7 @@ public class Familia{
         this.p = p;
     }
 
-    public void setPersonas(Persona[] personas) {
+    public void setPersonas(Persona personas[]) {
         this.personas = personas;
     }
 

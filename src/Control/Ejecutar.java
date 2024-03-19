@@ -24,43 +24,37 @@ public class Ejecutar {
     
     public static void ejecutarMenu(int accion){
         int cantDinero=0, cantProds=0;
-     //   boolean gobCargado=true, prodsCargado=true, famCargado=true;
+        boolean gobCargado=true, prodsCargado=true, famCargado=true;
         switch(accion){
             case 1:
                 do{
-                    cantDinero=vista.pedirEntero("Ingrese el fondo de dinero");
+                    cantDinero=vista.pedirEntero("Ingrese el fondo de dinero (Minimo 500000$)");
                     cantProds=vista.pedirEntero("Ingrese la cantidad de Productos");
-                }while(cantDinero<=0 || cantProds<=0);
-            //    gobCargado=false;
+                }while(cantDinero<=500000 || cantProds<=0);
+                gobCargado=false;
                 gobierno=new Gobierno(cantDinero,cantProds);
-              /*  String a=""+gobCargado;
-                vista.mostraDatos(a);*/
             break;
             case 2:
-             //   if(gobCargado==false){                
+                if(gobCargado==false){                
                     gobierno.crearProds();
-            /*   //     prodsCargado=false;
-                //a=""+gobCargado;
-                //vista.mostraDatos(a);
-                //}else{
-                    vista.mostraDatos("Debe ingresar primero los fondos y cantidad de ayudas");
-                a=""+gobCargado;
-                vista.mostraDatos(a);
-                }*/
+                    prodsCargado=false;
+                }else{
+                    vista.mostraDatos("Debe ingresar primero los fondos y cantidad de productos");
+                }
             break;
             case 3:
-            //    if(gobCargado==false && prodsCargado==false){
-                gobierno.crearFamilias();
-              /*  }else{
-                    vista.mostraDatos("Debe ingresar primero los fondos, cantidad de ayudas y cargar los productos");
-                }*/
+                if(gobCargado==false && prodsCargado==false){
+                    gobierno.crearFamilias();
+                }else{
+                    vista.mostraDatos("Debe ingresar primero los fondos, cantidad de productos y cargarlos");
+                }
             break;
             case 4:
-             //   if(gobCargado==false && prodsCargado==false && famCargado==false){
+                if(gobCargado==false && prodsCargado==false && famCargado==false){
                 gobierno.evaluarFamilia();
-               /* }else{
+                }else{
                     vista.mostraDatos("Dege ingresar primero las familias");
-                }*/
+                }
             break;
             
         }
