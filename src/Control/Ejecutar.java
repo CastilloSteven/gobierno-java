@@ -22,9 +22,9 @@ public class Ejecutar {
         return vista.pedirEntero(menu);
     }    
     
+        static int cantDinero=0, cantProds=0;
+        static boolean gobCargado=true, prodsCargado=true, famCargado=true;
     public static void ejecutarMenu(int accion){
-        int cantDinero=0, cantProds=0;
-        boolean gobCargado=true, prodsCargado=true, famCargado=true;
         switch(accion){
             case 1:
                 do{

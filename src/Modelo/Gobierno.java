@@ -10,6 +10,8 @@ public class Gobierno {
     //Familia familias_post[]=new Familia[100];//se define vector de familias postuladas
     ArrayList <Familia> familias_post=new ArrayList <Familia>();
     ArrayList <Familia> familias_ayu=new ArrayList <Familia>();
+    ArrayList<Integer> ids_personas = new ArrayList<>();
+    ArrayList<Integer> ids_prods = new ArrayList<>();
     Ayuda Ay;
     InOut oe=new InOut();//crea el objeto para acceder a InOut
     Validaciones v=new Validaciones();
@@ -25,7 +27,10 @@ public class Gobierno {
         for(int i=0;i<Ay.getCProds(); i++){
             int j=i+1;
             oe.mostraDatos("Producto " + j);
-            id=oe.pedirEntero("ingrese el id");
+            do{
+                id=oe.pedirEntero("ingrese el id");
+            }while(!v.evaluarIdProds(ids_prods, id));
+            ids_prods.add(id);
             nombre=oe.pedirString("ingrese el nombre");
             fv=oe.pedirString("Ingrese la fecha de vencimiento");
             cant=oe.pedirEntero("Ingrese la cantidad");
@@ -38,17 +43,24 @@ public class Gobierno {
      
     public void crearFamilias(){
         int ind=0,res,edad,est,ced,cpf=0,rol;;
-        String nom="",asds="";
+        String nom="";
         Persona personasF[];
         Persona cf;
         Familia fam=null;
         res=oe.pedirEntero("Crear familia\n1. Ingresar Nueva familia\nOtro numero para salir");
         while(res==1){
-            ced=oe.pedirEntero("ingrese cedula cabeza de familia");
-            nom=oe.pedirString("Ingrese nombre completo");
+            do{
+                ced=oe.pedirEntero("ingrese cedula cabeza de familia");            
+            }while(!v.evaluarIdPersona(ids_personas, ced));
+            ids_personas.add(ced);
+            do{
+                nom=oe.pedirString("Ingrese nombre completo");                
+            }while(!v.evaluarNombre(nom));
+            
             do{
                 edad=oe.pedirEntero("ingrese la edad");
             }while(!v.evaluarEdadC(edad));
+            
             do{
                 est=oe.pedirEntero("Ingrese el estrato");
             }while(!v.evaluarEst(est));
@@ -61,8 +73,13 @@ public class Gobierno {
             for(int i=0; i<cpf;i++){
                 int j=i+1;
                 oe.mostraDatos("Integrante "+ j);
-                ced=oe.pedirEntero("ingrese id");
-                nom=oe.pedirString("Ingrese nombre completo");
+                do{
+                    ced=oe.pedirEntero("ingrese id");                      
+                }while(!v.evaluarIdPersona(ids_personas, ced));
+                ids_personas.add(ced);
+                do{
+                    nom=oe.pedirString("Ingrese nombre completo");
+                }while(!v.evaluarNombre(nom));
                
                 rol=oe.pedirEntero("Ingrese su rol: 1.hijo, 2.conyugue, 3 padre"); 
                 switch (rol) {

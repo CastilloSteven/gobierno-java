@@ -15,6 +15,9 @@ public class InOut {
     public void mostraDatos(String m){
         JOptionPane.showMessageDialog(null, m);
     }
+    public void mostraDatos2(int m){
+        JOptionPane.showMessageDialog(null, m);
+    }
     
     
      
