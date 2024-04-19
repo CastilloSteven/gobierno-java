@@ -45,6 +45,7 @@ public class Ejecutar {
             case 3:
                 if(gobCargado==false && prodsCargado==false){
                     gobierno.crearFamilias();
+                    famCargado=false;
                 }else{
                     vista.mostraDatos("Debe ingresar primero los fondos, cantidad de productos y cargarlos");
                 }
@@ -53,7 +54,7 @@ public class Ejecutar {
                 if(gobCargado==false && prodsCargado==false && famCargado==false){
                 gobierno.evaluarFamilia();
                 }else{
-                    vista.mostraDatos("Dege ingresar primero las familias");
+                    vista.mostraDatos("Debe ingresar primero las familias");
                 }
             break;
             

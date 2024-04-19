@@ -43,7 +43,7 @@ public class Gobierno {
      
     public void crearFamilias(){
         int ind=0,res,edad,est,ced,cpf=0,rol;;
-        String nom="";
+        String nom="",cadena="";
         Persona personasF[];
         Persona cf;
         Familia fam=null;
@@ -67,9 +67,15 @@ public class Gobierno {
             cf=new Persona(ced,nom,edad);
             cf.setEstrato(est);
             cf.setRol(0);
+            
+            cadena=oe.pedirString("Ingrese una cadena de texto para verificar si se puede formar su nombre");
+            
+            v.evaluarCadena(cadena, nom);
+            
+            
             cpf=oe.pedirEntero("Cantidad de integrantes de la familia");
             personasF=new Persona [cpf];//sirve pára guardar las personas de esa familia
-           
+            
             for(int i=0; i<cpf;i++){
                 int j=i+1;
                 oe.mostraDatos("Integrante "+ j);
@@ -80,7 +86,8 @@ public class Gobierno {
                 do{
                     nom=oe.pedirString("Ingrese nombre completo");
                 }while(!v.evaluarNombre(nom));
-               
+                
+                
                 rol=oe.pedirEntero("Ingrese su rol: 1.hijo, 2.conyugue, 3 padre"); 
                 switch (rol) {
                     case 1:
@@ -109,6 +116,8 @@ public class Gobierno {
             familias_post.add(fam);
                
             oe.mostraDatos("Familia creada con exito");
+            
+            v.alfabeticos(fam);
             res=oe.pedirEntero("Crear familia\n1. Ingresar Nueva familia\nOtro numero para salir");
 
         }  

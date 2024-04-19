@@ -52,4 +52,51 @@ public class Validaciones {
         }
        return valido;
    }
+   
+   public void evaluarCadena(String cadena, String nombre){
+       
+       boolean sePuedeEscribir = true;
+       for(int i=0;i<nombre.length();i++){
+           int contador=0;
+           for(int j=0;j<cadena.length();j++){
+               if(nombre.toLowerCase().charAt(i)==cadena.toLowerCase().charAt(j)){
+                   contador++;
+               }
+            }
+           if(contador==0){
+            
+            sePuedeEscribir=false;
+           }
+       }
+       if(sePuedeEscribir==false){
+               
+            oe.mostraDatos("no se puede escribir el nombre con la cadena ingresada");
+           }else{
+               
+          oe.mostraDatos("se puede escribir el nombre con la cadena ingresada");
+           }
+       
+   }
+   
+   public void alfabeticos(Familia familia){
+       
+       int contador = familia.getPersonas().length;
+        for (int i = 0; i < contador - 1; i++) {
+            for (int j = 0; j < contador - i - 1; j++) {
+                if (familia.getPersonas()[j].getNombre().compareToIgnoreCase(familia.getPersonas()[j + 1].getNombre()) > 0) {
+                    // Intercambiar arr[j] y arr[j+1]
+                    Persona aux = familia.getPersonas()[j];
+                    familia.getPersonas()[j] = familia.getPersonas()[j+1];
+                    familia.getPersonas()[j + 1] = aux;
+                }
+            }
+        }
+        String mensaje="";
+            mensaje+="Integrantes por orden alfabetico \n";
+        for(int i=0;i<contador;i++){
+            mensaje+=familia.getPersonas()[i].getNombre()+" \n";
+        }
+       oe.mostraDatos(mensaje);
+       
+   }
 }
